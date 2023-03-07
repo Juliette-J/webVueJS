@@ -1,10 +1,13 @@
 <template>
-  <div>Hi, I'm a Genshin character</div>
+  <div>Hi, I'm {{ name }}</div>
 </template>
 
 <script>
 export default {
-  name: 'CharacterWindow'
+  name: 'CharacterFrame',
+  props: {
+    name: String
+  }
 }
 </script>
 
