@@ -15,6 +15,7 @@ export default {
 div {
   font-size: 20px;
   margin-top: 30px;
+  padding: 10px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 </style>
