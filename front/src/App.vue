@@ -2,17 +2,16 @@
   <MyHeader/>
   <MyHomePage/>
   <div>
-    <CharacterFrame v-bind:name="allCharData[0]"/>
-    <CharacterFrame v-bind:name="allCharData[1]"/>
-    <CharacterFrame v-bind:name="allCharData[2]"/>
-    <CharacterFrame v-bind:name="allCharData[3]"/>
-    <CharacterFrame v-bind:name="allCharData[4]"/>
-    <CharacterFrame v-bind:name="allCharData[5]"/>
-    <CharacterFrame v-bind:name="allCharData[6]"/>
-    <CharacterFrame v-bind:name="allCharData[7]"/>
-    <CharacterFrame v-bind:name="allCharData[8]"/>
+    
+    <CharacterFrame 
+      v-for="character in charactersData" 
+      :key="character" 
+      :name="character"
+      :pictureURL="characterPicture"/>
+
+    {{ characterPicture }}
+
   </div>
-  <!--{{ charData }} -->
 </template>
 
 <script>
@@ -20,7 +19,7 @@ import MyHeader from './components/MyHeader.vue'
 import MyHomePage from './components/MyHomePage.vue'
 import CharacterFrame from './components/CharacterFrame.vue'
 
-import { getAllCharData /*, getCharData CONTINUE HERE*/ } from './services/charAPI.js'
+import { getCharactersData , getPicture } from './services/charAPI.js'
 
 export default {
   name: 'App',
@@ -31,17 +30,24 @@ export default {
   },
   data() {
     return {
-      //charData: [],
-      allCharData: []
+      charactersData: [],
+      characterPicture: []
     }
   },
   created: function() {
-    this.retrieveCharData()
+    this.retrieveData(),
+    this.retrievePic()
   },
   methods: {
-    async retrieveCharData() {
-      this.allCharData = await getAllCharData()
+    async retrieveData() {
+      this.charactersData = await getCharactersData()
+    },
+    async retrievePic() {
+      this.charactersData.forEach(char => {
+        this.characterPicture = getPicture(char)
+      });
     }
+    
   }
 }
 </script>

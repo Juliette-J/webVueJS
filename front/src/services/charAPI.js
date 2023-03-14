@@ -1,4 +1,4 @@
-const getAllCharData = async function() {
+const getCharactersData = async function() {
     const response = await fetch("https://api.genshin.dev/characters")
     if (response.status == 200) {
         return response.json();
@@ -7,8 +7,8 @@ const getAllCharData = async function() {
     }
 }
 
-const getCharData = async function(name) {
-    const response = await fetch("https://api.genshin.dev/characters/" + name)
+const getPicture = async function(name) {
+    const response = await fetch("https://api.genshin.dev/characters/" + name + "/icon-big")
     if (response.status == 200) {
         return response.json();
     } else {
@@ -16,4 +16,14 @@ const getCharData = async function(name) {
     }
 }
 
-export { getAllCharData, getCharData }
+/*
+const getCharacterData = async function(name) {
+    const response = await fetch("https://api.genshin.dev/characters/" + name)
+    if (response.status == 200) {
+        return response.json();
+    } else {
+        new Error(response.statusText);
+    }
+} */
+
+export { getCharactersData, getPicture }
