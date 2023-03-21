@@ -1,33 +1,51 @@
 <template>
   <div>
-    <img alt="" :href="pictureURL">
+    <picture>
+      <source :srcset="pictureURL" type="image/webp">
+      <img :src="pictureURL" alt="">
+    </picture>
+
     <p>{{ name }}</p>
   </div>
 </template>
 
 <script>
+
+
 export default {
   name: 'CharacterFrame',
   props: {
-    name: String,
-    pictureURL: String
+    name: String
+  },
+  data() {
+    return {
+      pictureURL: "https://api.genshin.dev/characters/" + this.name + "/icon-big"
+    }
   }
 }
 </script>
 
 <style scoped>
 div {
-  border: 2px solid black;
-  padding: 8px;
-  margin: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  height: 100px;
+  width: 260px;
+  padding: 1em;
+  margin: 0.6em;
 }
 
 p {
   text-transform: uppercase;
-  font-size: 20px;
-  margin-top: 30px;
-  padding: 10px;
+  font-size: 1.2em;
+  padding: 1em;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+img {
+  max-height: 100px;
 }
 
 </style>

@@ -2,14 +2,12 @@
   <MyHeader/>
   <MyHomePage/>
   <div>
-    
     <CharacterFrame 
       v-for="character in charactersData" 
       :key="character" 
-      :name="character"
-      :pictureURL="characterPicture"/>
+      :name="character"/>
 
-    {{ characterPicture }}
+    {{ characterData }}
 
   </div>
 </template>
@@ -19,7 +17,7 @@ import MyHeader from './components/MyHeader.vue'
 import MyHomePage from './components/MyHomePage.vue'
 import CharacterFrame from './components/CharacterFrame.vue'
 
-import { getCharactersData , getPicture } from './services/charAPI.js'
+import { getCharactersData, getCharacterData } from './services/charAPI.js'
 
 export default {
   name: 'App',
@@ -31,23 +29,19 @@ export default {
   data() {
     return {
       charactersData: [],
-      characterPicture: []
+      characterData: []
     }
   },
   created: function() {
-    this.retrieveData(),
-    this.retrievePic()
+    this.retrieveData()
   },
   methods: {
     async retrieveData() {
-      this.charactersData = await getCharactersData()
-    },
-    async retrievePic() {
-      this.charactersData.forEach(char => {
-        this.characterPicture = getPicture(char)
+      this.charactersData = await getCharactersData(),
+      this.charactersData.forEach(element => {
+        this.characterData = getCharacterData(element)
       });
     }
-    
   }
 }
 </script>
