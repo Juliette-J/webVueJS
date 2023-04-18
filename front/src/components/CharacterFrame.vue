@@ -10,8 +10,6 @@
 </template>
 
 <script>
-
-
 export default {
   name: 'CharacterFrame',
   props: {
@@ -19,8 +17,7 @@ export default {
   },
   data() {
     return {
-      pictureURL: "https://api.genshin.dev/characters/" + this.name + "/icon-big"
-    }
+      pictureURL: "https://api.genshin.dev/characters/" + this.name + "/icon-big"    }
   }
 }
 </script>
