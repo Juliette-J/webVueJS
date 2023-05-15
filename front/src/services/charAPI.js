@@ -1,4 +1,4 @@
-const getCharactersData = async function() {
+const getCharacters = async function() {
     const response = await fetch("https://api.genshin.dev/characters")
     if (response.status == 200) {
         return response.json();
@@ -7,7 +7,7 @@ const getCharactersData = async function() {
     }
 }
 
-const getCharacterData = async function(name) {
+const getCharactersData = async function(name) {
     const response = await fetch("https://api.genshin.dev/characters/" + name)
     if (response.status == 200) {
         return response.json();
@@ -16,4 +16,4 @@ const getCharacterData = async function(name) {
     }
 }
 
-export { getCharactersData , getCharacterData }
+export { getCharacters , getCharactersData }

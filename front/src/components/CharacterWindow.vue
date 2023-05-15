@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>{{ name }}</p>
     <p>{{ title }}</p>
     <p>{{ vision }}</p>
     <p>{{ weapon }}</p>
@@ -17,8 +18,8 @@ export default {
     title: String,
     vision: String,
     weapon: String,
-    rarity: String,
-    birthday: Date,
+    rarity: Number,
+    birthday: String,
     description: String
   },
 }

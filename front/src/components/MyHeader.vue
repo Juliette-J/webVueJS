@@ -3,8 +3,6 @@
   <nav>
     <a href="">Artifacts</a>
     <a href="">Characters</a>
-    <a href="">Elements</a>
-    <a href="">Nations</a>
     <a href="">Weapons</a>
   </nav>
 </template>

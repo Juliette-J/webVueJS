@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      pictureURL: "https://api.genshin.dev/characters/" + this.name + "/icon-big"    }
+      pictureURL: "https://api.genshin.dev/characters/" + this.name + "/icon" }
   }
 }
 </script>
