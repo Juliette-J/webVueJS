@@ -12,11 +12,18 @@
         <option value="ZAName">Noms de Z à A</option>
       </select>
       
-      <label for="rarity-sort">Rareté : </label>
-      <select v-model="rarity" id="rarity-sort">
-        <option value="3">3 étoiles</option>
+      <label for="rarity-filter">Rareté : </label>
+      <select v-model="charsRarity" id="rarity-filter">
         <option value="4">4 étoiles</option>
         <option value="5">5 étoiles</option>
+      </select>
+
+      <label for="nation-filter">Nation : </label>
+      <select v-model="charsNation" id="nation-filter">
+        <option value="Mondstadt">Mondstadt</option>
+        <option value="Liyue">Liyue</option>
+        <option value="Inazuma">Inazuma</option>
+        <option value="Outlander">Autre</option>
       </select>
     </div>
 
@@ -67,6 +74,12 @@ export default {
     },
     charsSortType: function(newCharsSortType) {
       localStorage.setItem("charsSortType", newCharsSortType)
+    },
+    charsRarity: function(newCharsRarity) {
+      localStorage.setItem("charsRarity", newCharsRarity)
+    },
+    charsNation: function(newCharsNation) {
+      localStorage.setItem("charsNation", newCharsNation)
     }
   },
   created: function() {
@@ -75,10 +88,14 @@ export default {
   computed: {
     charactersOrdered: function() {
       const reversed = ["ZAName"].includes(this.charsSortType)
-      const filterFunc = (a) => a["name"].toLowerCase().includes(this.search.toLowerCase())
-      const comparator = (a,b) => a.name.localeCompare(b.name)
-      let data = this.charactersData.filter(filterFunc)
-      data = data.sort(comparator)
+      const nameFilterFunc = (a) => a.name.toLowerCase().includes(this.search.toLowerCase())
+      const rarityFilterFunc = (a) => a.rarity.toString().includes(this.charsRarity)
+      const nationFilterFunc = (a) => a.nation.includes(this.charsNation)
+      const nameComparator = (a,b) => a.name.localeCompare(b.name)
+      //const rarityComparator = (a,b) => a.rarity < b.rarity
+      let data = this.charactersData.filter(nameFilterFunc).filter(rarityFilterFunc).filter(nationFilterFunc)
+      data = data.sort(nameComparator)
+      //data = data.sort(rarityComparator)
       if (reversed) data = data.reverse()
       return data
     }
@@ -88,9 +105,10 @@ export default {
       characters: [],
       charactersData: [],
       isVisible: true,
-      rarity: "",
       search: localStorage.getItem("search") || "",
-      charsSortType: localStorage.getItem("charsSortType") || "AZName"
+      charsSortType: localStorage.getItem("charsSortType") || "AZName",
+      charsRarity: localStorage.getItem("charsRarity") || "",
+      charsNation: localStorage.getItem("charsNation") || ""
     }
   },
   methods: {
