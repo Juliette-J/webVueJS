@@ -1,6 +1,7 @@
 <template>
+  <!-- Little card-->
   <div class="card" v-show="isVisible == false">
-
+    <!-- Default picture-->
     <picture v-if="this.name.includes('traveler') == true">
       <source :srcset="defaultURL" type="image/webp">
         <img class="icon" :src="defaultURL" alt="">
@@ -16,20 +17,19 @@
       <p>{{ rarity }} stars</p>
       <picture >
         <source :srcset="visionURL" type="image/webp">
-        <img class="vision" :src="visionURL" alt="">
+          <img class="vision" :src="visionURL" alt="">
       </picture>
       <button v-on:click="changeVisibility" value="">+</button>
     </div>
   </div>
-
+  
+   <!-- Detailed card-->
   <div class="big-card" v-show="isVisible == true">
     <div class="infos">
-
-    <picture>
-      <source :srcset="cardURL" type="image/webp">
-      <img class="full-icon" :src="cardURL" alt="">
-    </picture>
-  
+      <picture>
+        <source :srcset="cardURL" type="image/webp">
+          <img class="full-icon" :src="cardURL" alt="">
+      </picture>
       <p>Name : {{ name.split('|')[0] }}</p>
       <p>Title : {{ title }}</p>
       <p>Date of birth : {{ birthday }}</p>
@@ -37,9 +37,8 @@
       <p>Vision : {{ vision }}</p>
       <picture >
         <source :srcset="visionURL" type="image/webp">
-        <img class="vision" :src="visionURL" alt="">
+          <img class="vision" :src="visionURL" alt="">
       </picture>
-
       <p>Nation : {{ nation }}</p>
       <p>Affiliation : {{ affiliation }}</p>
       <p>Weapon : {{ weapon }}</p>
@@ -55,7 +54,6 @@
 export default {
   name: 'CharacterCard',
   props: {
-    // isVisible: Boolean,
     name: String,
     title: String,
     birthday: String,
@@ -67,7 +65,6 @@ export default {
     constellation: String,
     description: String
   },
-  // emits: ["update:isVisible"],
   data() {
     return {
       iconURL: "https://api.genshin.dev/characters/" + this.name.split('|')[1].toLowerCase() + "/icon-big",
@@ -78,10 +75,6 @@ export default {
     }
   },
   methods: {
-    /*
-    onChangeVisibility () {
-      this.$emit("update:isVisible", this.isVisible)
-    }, */
     changeVisibility: function() {
       this.isVisible = !this.isVisible
     }

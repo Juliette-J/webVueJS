@@ -1,109 +1,45 @@
 <template>
   <MyHeader/>
-  <div>
-    <CharactersGalleryOptions v-model:search="search" v-model:charsSortType="charsSortType" v-model:charsRarity="charsRarity" v-model:charsVision="charsVision" v-model:charsNation="charsNation" v-model:charsWeapon="charsWeapon"/>
-
-    <div class="gallery">
-     <CharacterCard
-        v-for="character in charactersOrdered"
-        :key="character.name + character.vision"
-        :name="character.name"
-        :title="character.title"
-        :birthday="character.birthday"
-        :rarity="character.rarity"
-        :vision="character.vision"
-        :nation="character.nation"
-        :affiliation="character.affiliation"
-        :weapon="character.weapon"
-        :constellation="character.constellation"
-        :description="character.description"/>
-    </div>
-  </div>
+  <nav>
+    <router-link to="/">Home</router-link> | 
+    <router-link to="/characters">Characters</router-link> | 
+    <router-link to="/enemies">Enemies</router-link> 
+  </nav>
+  <router-view/>
   <MyFooter/>
 </template>
 
 <script>
-import MyHeader from './components/MyHeader.vue'
-import MyFooter from './components/MyFooter.vue'
-import CharactersGalleryOptions from './components/CharactersGalleryOptions.vue'
-import CharacterCard from './components/CharacterCard.vue'
-
-import { getCharacters, getCharactersData } from './services/charAPI.js'
+import MyHeader from '@/components/MyHeader.vue'
+import MyFooter from '@/components/MyFooter.vue'
 
 export default {
-  name: 'App',
+  name: 'HomeView',
   components: {
     MyHeader,
-    MyFooter,
-    CharactersGalleryOptions,
-    CharacterCard
-  },
-  created: function() {
-    this.retrieveChars()
-  },
-  computed: {
-    charactersOrdered: function() {
-      const reversed = ["ZAName"].includes(this.charsSortType)
-      const nameFilterFunc = (a) => a.name.toLowerCase().includes(this.search.toLowerCase())
-      const rarityFilterFunc = (a) => a.rarity.toString().includes(this.charsRarity)
-      const visionFilterFunc = (a) => a.vision.includes(this.charsVision)
-      const nationFilterFunc = (a) => a.nation.includes(this.charsNation)
-      const weaponFilterFunc = (a) => a.weapon.includes(this.charsWeapon)
-      const nameComparator = (a,b) => a.name.localeCompare(b.name)
-      let data = this.charactersData.filter(nameFilterFunc).filter(rarityFilterFunc).filter(visionFilterFunc).filter(nationFilterFunc).filter(weaponFilterFunc)
-      data = data.sort(nameComparator)
-      if (reversed) data = data.reverse()
-      return data
-    }
-  },
-  data() {
-    return {
-      characters: [],
-      charactersData: [],
-      search: localStorage.getItem("search") || "",
-      charsSortType: localStorage.getItem("charsSortType") || "AZName",
-      charsRarity: localStorage.getItem("charsRarity") || "",
-      charsVision: localStorage.getItem("charsVision") || "",
-      charsNation: localStorage.getItem("charsNation") || "",
-      charsWeapon: localStorage.getItem("charsWeapon") || ""
-    }
-  },
-  methods: {
-    async retrieveChars() {
-      this.characters = await getCharacters()
-      console.log(this.characters) 
-      for(let i = 0; i < this.characters.length; i++) {
-        this.charactersData.push(await getCharactersData(this.characters[i]))
-        this.charactersData[i].name += "|" + this.characters[i]
-      }
-    }
+    MyFooter
   }
 }
 </script>
 
-<style scoped>
-.gallery-options {
+<style>
+nav {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-}
-.search {
-  width: 90%;
-  margin-left: 5%;
-}
-.first-bar, .second-bar {
-  margin: 0.7em;
-  justify-content: space-around;
-}
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  background-color: rgb(137, 0, 0);
+  color: white;
+  margin: 1em;
+  padding: 1em;
 }
 
-label {
-  margin-left: 0.7em;
-  margin-right: 0.5em;
+nav a {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-decoration: none;
+  font-size: 1.3em;
+  color: white;
+}
+
+nav a.router-link-exact-active {
+  color: #7be2b4;
 }
 </style>

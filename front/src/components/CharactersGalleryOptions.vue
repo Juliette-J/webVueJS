@@ -129,6 +129,8 @@ export default {
 }
 
 label {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.9em;
   margin-left: 0.7em;
   margin-right: 0.5em;
 }
