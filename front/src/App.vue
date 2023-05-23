@@ -4,27 +4,27 @@
   <div>
     <div class="gallery-options">
       <div class="first-bar">
-        <input class="search" type="text" v-model="search" placeholder="Chercher un personnage">
+        <input class="search" type="text" v-model="search" placeholder="Searching for...">
         <button v-if="search" @click="cleanSearch">X</button>
       </div>  
 
       <div class="second-bar">  
-        <label for="char-sort">Trier par : </label>
+        <label for="char-sort">Sort by : </label>
         <select v-model="charsSortType" id="char-sort">
-          <option value="AZName">Noms de A à Z</option>
-          <option value="ZAName">Noms de Z à A</option>
+          <option value="AZName">Names from A to Z</option>
+          <option value="ZAName">Names from Z to A</option>
         </select>
       
-        <label for="rarity-filter">Rareté : </label>
+        <label for="rarity-filter">Rarity : </label>
         <select v-model="charsRarity" id="rarity-filter">
-          <option value="">Toutes</option>
-          <option value="4">4 étoiles</option>
-          <option value="5">5 étoiles</option>
+          <option value="">All</option>
+          <option value="4">4 stars</option>
+          <option value="5">5 stars</option>
         </select>
 
         <label for="nation-filter">Nation : </label>
         <select v-model="charsNation" id="nation-filter">
-          <option value="">Toutes</option>
+          <option value="">All</option>
           <option value="Mondstadt">Mondstadt</option>
           <option value="Liyue">Liyue</option>
           <option value="Inazuma">Inazuma</option>

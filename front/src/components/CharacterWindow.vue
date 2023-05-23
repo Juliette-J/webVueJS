@@ -7,7 +7,10 @@
 
     <div class="infos">
       <p>{{ name }}</p>
-      <p>{{ vision }}</p>
+      <picture >
+        <source :srcset="visionURL" type="image/webp">
+        <img class="vision" :src="visionURL" alt="">
+      </picture>
       <button v-on:click="changeVisibility" value="">+</button>
     </div>
   </div>
@@ -19,12 +22,16 @@
     </picture>
 
     <div class="infos">
-      <p>Nom : {{ name }}</p>
+      <p>Name : {{ name }}</p>
       <p>Vision : {{ vision }}</p>
-      <p>Date de naissance : {{ birthday }}</p>
-      <p>Titre : {{ title }}</p>
-      <p>Rareté : {{ rarity }} étoiles</p>
-      <p>Arme : {{ weapon }}</p>
+      <picture >
+        <source :srcset="visionURL" type="image/webp">
+        <img class="vision" :src="visionURL" alt="">
+      </picture>
+      <p>Date of birth : {{ birthday }}</p>
+      <p>Title : {{ title }}</p>
+      <p>Rarity : {{ rarity }} stars</p>
+      <p>Weapon : {{ weapon }}</p>
       
       <p>{{ description }}</p>
       <button v-on:click="changeVisibility" value="">-</button>
@@ -45,11 +52,12 @@ export default {
     birthday: String,
     description: String
   },
-  emits: ["update:isVisible"],
+  // emits: ["update:isVisible"],
   data() {
     return {
       iconURL: "https://api.genshin.dev/characters/" + this.name.toLowerCase() + "/icon-big",
       cardURL: "https://api.genshin.dev/characters/" + this.name.toLowerCase() + "/card",
+      visionURL: "https://api.genshin.dev/elements/" + this.vision.toLowerCase() + "/icon",
       isVisible: false
     }
   },
