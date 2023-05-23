@@ -1,25 +1,42 @@
 <template>
-  <div class="card">
-    <picture>
-      <source :srcset="pictureURL" type="image/webp">
-      <img :src="pictureURL" alt="">
+  <div class="card" v-show="isVisible == false">
+    <picture >
+      <source :srcset="iconURL" type="image/webp">
+        <img class="icon" :src="iconURL" alt="">
     </picture>
-    <p>{{ name }}</p>
-    <p>{{ title }}</p>
-    <p>{{ vision }}</p>
-    <p>{{ rarity }}</p>
-    <!--
-    <p>{{ weapon }}</p>
-    <p>{{ birthday }}</p>
-    <p>{{ description }}</p>
-    -->
+
+    <div class="infos">
+      <p>{{ name }}</p>
+      <p>{{ vision }}</p>
+      <button v-on:click="changeVisibility" value="">+</button>
+    </div>
+  </div>
+
+  <div class="big-card" v-show="isVisible == true">
+    <picture>
+      <source :srcset="cardURL" type="image/webp">
+      <img class="full-icon" :src="cardURL" alt="">
+    </picture>
+
+    <div class="infos">
+      <p>Nom : {{ name }}</p>
+      <p>Vision : {{ vision }}</p>
+      <p>Date de naissance : {{ birthday }}</p>
+      <p>Titre : {{ title }}</p>
+      <p>Rareté : {{ rarity }} étoiles</p>
+      <p>Arme : {{ weapon }}</p>
+      
+      <p>{{ description }}</p>
+      <button v-on:click="changeVisibility" value="">-</button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CharacterFrame',
+  name: 'CharacterWindow',
   props: {
+    // isVisible: Boolean,
     name: String,
     title: String,
     vision: String,
@@ -28,20 +45,50 @@ export default {
     birthday: String,
     description: String
   },
+  emits: ["update:isVisible"],
   data() {
     return {
-      pictureURL: "https://api.genshin.dev/characters/" + this.name.toLowerCase() + "/icon-big" }
+      iconURL: "https://api.genshin.dev/characters/" + this.name.toLowerCase() + "/icon-big",
+      cardURL: "https://api.genshin.dev/characters/" + this.name.toLowerCase() + "/card",
+      isVisible: false
+    }
+  },
+  methods: {
+    /*
+    onChangeVisibility () {
+      this.$emit("update:isVisible", this.isVisible)
+    }, */
+    changeVisibility: function() {
+      this.isVisible = !this.isVisible
+    }
   }
 }
 </script>
 
 <style scoped>
-div {
+.card {
+  display: flex;
+  justify-content: center;
   border: 1px solid black;
   padding: 1em;
   margin: 0.6em;
-  max-width: 9em;
+  width: 12em;
   box-shadow: 3px 3px gray;
+}
+
+.big-card {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  padding: 1em;
+  margin: 0.6em;
+  width: 45%;
+  box-shadow: 3px 3px gray;
+}
+.infos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 div:hover {
@@ -51,11 +98,21 @@ div:hover {
 p {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 1em;
-  padding: 1em;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-img {
-  max-width: 8.5em;
+.icon {
+  max-width: 7em;
+  margin-right: 1em;
+}
+
+.full-icon {
+  max-height: 30em;
+  margin-right: 1em;
+}
+
+button {
+  width: 1.5em;
+  margin-top: 1em;
 }
 </style>

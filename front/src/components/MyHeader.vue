@@ -1,5 +1,5 @@
 <template>
-  <h1>Welcome to Genshin Impact Galery !</h1>
+  <h1>Genshin Impact Galery</h1>
   <nav>
     <a href="">Artifacts</a>
     <a href="">Characters</a>
@@ -18,19 +18,23 @@ h1 {
   font-size: 30px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   text-align: center;
-  margin-top: 60px;
-  margin-bottom: 40px;
+  margin-top: 40px;
+  margin-bottom: 30px;
 }
 
 nav{
   display: flex;
   justify-content: space-around;
   margin-bottom: 60px;
+  background-color: rgb(127, 0, 0);
+  margin: 1.2em;
+  padding: 0.8em;
 }
 
 a{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: rgb(188, 17, 17);
+  background-color: white;
+  color:  rgb(127, 0, 0);
   text-decoration: none;
 
   border: 1.5px solid black;
