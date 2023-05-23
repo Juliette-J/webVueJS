@@ -1,9 +1,9 @@
 <template>
   <h1>Genshin Impact Galery</h1>
   <nav>
-    <a href="">Artifacts</a>
-    <a href="">Characters</a>
-    <a href="">Weapons</a>
+    <a href="/artifacts">Artifacts</a>
+    <a href="/characters">Characters</a>
+    <a href="/weapons">Weapons</a>
   </nav>
   <h2>Welcome to Genshin Impact Galery !</h2>
   <p>Here is a galery for Genshin Impact features.</p>

@@ -2,7 +2,7 @@
   <MyHeader/>
   <div>
     <CharactersGalleryOptions v-model:search="search" v-model:charsSortType="charsSortType" v-model:charsRarity="charsRarity" v-model:charsVision="charsVision" v-model:charsNation="charsNation" v-model:charsWeapon="charsWeapon"/>
-    
+
     <div class="gallery">
      <CharacterCard
         v-for="character in charactersOrdered"
@@ -82,9 +82,28 @@ export default {
 </script>
 
 <style scoped>
+.gallery-options {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+}
+.search {
+  width: 90%;
+  margin-left: 5%;
+}
+.first-bar, .second-bar {
+  margin: 0.7em;
+  justify-content: space-around;
+}
 .gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+label {
+  margin-left: 0.7em;
+  margin-right: 0.5em;
 }
 </style>
