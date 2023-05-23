@@ -1,12 +1,19 @@
 <template>
   <div class="card" v-show="isVisible == false">
-    <picture >
+
+    <picture v-if="this.name.includes('traveler') == true">
+      <source :srcset="defaultURL" type="image/webp">
+        <img class="icon" :src="defaultURL" alt="">
+    </picture>
+    
+    <picture v-if="this.name.includes('traveler') == false">
       <source :srcset="iconURL" type="image/webp">
         <img class="icon" :src="iconURL" alt="">
     </picture>
 
     <div class="infos">
-      <p>{{ name }}</p>
+      <p class="name">{{ name.split('|')[0] }}</p>
+      <p>{{ rarity }} stars</p>
       <picture >
         <source :srcset="visionURL" type="image/webp">
         <img class="vision" :src="visionURL" alt="">
@@ -16,24 +23,29 @@
   </div>
 
   <div class="big-card" v-show="isVisible == true">
+    <div class="infos">
+
     <picture>
       <source :srcset="cardURL" type="image/webp">
       <img class="full-icon" :src="cardURL" alt="">
     </picture>
-
-    <div class="infos">
-      <p>Name : {{ name }}</p>
+  
+      <p>Name : {{ name.split('|')[0] }}</p>
+      <p>Title : {{ title }}</p>
+      <p>Date of birth : {{ birthday }}</p>
+      <p>Rarity : {{ rarity }} stars</p>
       <p>Vision : {{ vision }}</p>
       <picture >
         <source :srcset="visionURL" type="image/webp">
         <img class="vision" :src="visionURL" alt="">
       </picture>
-      <p>Date of birth : {{ birthday }}</p>
-      <p>Title : {{ title }}</p>
-      <p>Rarity : {{ rarity }} stars</p>
+
+      <p>Nation : {{ nation }}</p>
+      <p>Affiliation : {{ affiliation }}</p>
       <p>Weapon : {{ weapon }}</p>
-      
+      <p>Constellation : {{ constellation }}</p>
       <p>{{ description }}</p>
+
       <button v-on:click="changeVisibility" value="">-</button>
     </div>
   </div>
@@ -41,22 +53,26 @@
 
 <script>
 export default {
-  name: 'CharacterWindow',
+  name: 'CharacterCard',
   props: {
     // isVisible: Boolean,
     name: String,
     title: String,
-    vision: String,
-    weapon: String,
-    rarity: Number,
     birthday: String,
+    rarity: Number,
+    vision: String,
+    nation: String,
+    affiliation: String,
+    weapon: String,
+    constellation: String,
     description: String
   },
   // emits: ["update:isVisible"],
   data() {
     return {
-      iconURL: "https://api.genshin.dev/characters/" + this.name.toLowerCase() + "/icon-big",
-      cardURL: "https://api.genshin.dev/characters/" + this.name.toLowerCase() + "/card",
+      iconURL: "https://api.genshin.dev/characters/" + this.name.split('|')[1].toLowerCase() + "/icon-big",
+      defaultURL: "https://api.genshin.dev/characters/" + this.name.split('|')[1].toLowerCase() + "/icon",
+      cardURL: "https://api.genshin.dev/characters/" + this.name.split('|')[1].toLowerCase() + "/card",
       visionURL: "https://api.genshin.dev/elements/" + this.vision.toLowerCase() + "/icon",
       isVisible: false
     }
@@ -74,7 +90,7 @@ export default {
 </script>
 
 <style scoped>
-.card {
+.card, .big-card {
   display: flex;
   justify-content: center;
   border: 1px solid black;
@@ -83,15 +99,9 @@ export default {
   width: 12em;
   box-shadow: 3px 3px gray;
 }
-
 .big-card {
-  display: flex;
-  justify-content: center;
-  border: 1px solid black;
-  padding: 1em;
-  margin: 0.6em;
-  width: 45%;
-  box-shadow: 3px 3px gray;
+  width: 40%;
+  max-width: 20em;
 }
 .infos {
   display: flex;
@@ -105,22 +115,27 @@ div:hover {
 
 p {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 1em;
+  font-size: 0.9em;
+  
+}
+.name {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 1.2em;
+  margin: 0;
 }
-
 .icon {
-  max-width: 7em;
+  width: 90%;
   margin-right: 1em;
 }
-
 .full-icon {
-  max-height: 30em;
-  margin-right: 1em;
+  width: 100%;
 }
 
 button {
   width: 1.5em;
   margin-top: 1em;
+  background-color: rgb(137, 0, 0);
+  color: white;
+  border: none;
 }
 </style>

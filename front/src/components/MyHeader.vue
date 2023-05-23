@@ -5,6 +5,8 @@
     <a href="">Characters</a>
     <a href="">Weapons</a>
   </nav>
+  <h2>Welcome to Genshin Impact Galery !</h2>
+  <p>Here is a galery for Genshin Impact features.</p>
 </template>
 
 <script>
@@ -22,10 +24,18 @@ h1 {
   margin-bottom: 30px;
 }
 
+h2 {
+  font-size: 20px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
 nav{
   display: flex;
   justify-content: space-around;
-  margin-bottom: 60px;
+  margin-bottom: 2.3em;
   background-color: rgb(127, 0, 0);
   margin: 1.2em;
   padding: 0.8em;
@@ -41,5 +51,11 @@ a{
   padding: 4px;
   padding-left: 7px;
   padding-right: 7px;
+}
+
+p{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  color: rgb(56, 56, 56);
 }
 </style>

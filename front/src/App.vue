@@ -1,6 +1,5 @@
 <template>
   <MyHeader/>
-  <MyHomePage/>
   <div>
     <div class="gallery-options">
       <div class="first-bar">
@@ -22,6 +21,18 @@
           <option value="5">5 stars</option>
         </select>
 
+        <label for="vision-filter">Vision : </label>
+        <select v-model="charsVision" id="vision-filter">
+          <option value="">All</option>
+          <option value="Anemo">Anemo</option>
+          <option value="Cryo">Cryo</option>
+          <option value="Dendro">Dendro</option>
+          <option value="Electro">Electro</option>
+          <option value="Geo">Geo</option>
+          <option value="Hydro">Hydro</option>
+          <option value="Pyro">Pyro</option>
+        </select>
+        
         <label for="nation-filter">Nation : </label>
         <select v-model="charsNation" id="nation-filter">
           <option value="">All</option>
@@ -29,6 +40,16 @@
           <option value="Liyue">Liyue</option>
           <option value="Inazuma">Inazuma</option>
           <option value="Outlander">Autre</option>
+        </select>
+
+        <label for="weapon-filter">Weapon : </label>
+        <select v-model="charsWeapon" id="weapon-filter">
+          <option value="">All</option>
+          <option value="Bow">Bow</option>
+          <option value="Catalyst">Catalyst</option>
+          <option value="Claymore">Claymore</option>
+          <option value="Polearm">Polearm</option>
+          <option value="Sword">Sword</option>
         </select>
       </div>
     </div>
@@ -45,25 +66,29 @@
         v-for="character in charactersOrdered"
         v-model:isVisible="isVisible"
         v-on:update:isVisible="changeVisibility"/>-->
-        <CharacterWindow 
+      <CharacterCard
         v-for="character in charactersOrdered"
         :key="character.name + character.vision"
         :name="character.name"
         :title="character.title"
-        :vision="character.vision"
-        :weapon="character.weapon"
-        :rarity="character.rarity"
         :birthday="character.birthday"
+        :rarity="character.rarity"
+        :vision="character.vision"
+        :nation="character.nation"
+        :affiliation="character.affiliation"
+        :weapon="character.weapon"
+        :constellation="character.constellation"
         :description="character.description"/>
     </div>
   </div>
+  <MyFooter/>
 </template>
 
 <script>
 import MyHeader from './components/MyHeader.vue'
-import MyHomePage from './components/MyHomePage.vue'
+import MyFooter from './components/MyFooter.vue'
 //import CharacterFrame from './components/CharacterFrame.vue'
-import CharacterWindow from './components/CharacterWindow.vue'
+import CharacterCard from './components/CharacterCard.vue'
 
 import { getCharacters, getCharactersData } from './services/charAPI.js'
 
@@ -71,9 +96,9 @@ export default {
   name: 'App',
   components: {
     MyHeader,
-    MyHomePage,
+    MyFooter,
     //CharacterFrame,
-    CharacterWindow
+    CharacterCard
   },
   watch: {
     search: function(newSearch) {
@@ -85,8 +110,14 @@ export default {
     charsRarity: function(newCharsRarity) {
       localStorage.setItem("charsRarity", newCharsRarity)
     },
+    charsVision: function(newCharsVision) {
+      localStorage.setItem("charsVision", newCharsVision)
+    },
     charsNation: function(newCharsNation) {
       localStorage.setItem("charsNation", newCharsNation)
+    },
+    charsWeapon: function(newCharsWeapon) {
+      localStorage.setItem("charsWeapon", newCharsWeapon)
     }
   },
   created: function() {
@@ -97,9 +128,11 @@ export default {
       const reversed = ["ZAName"].includes(this.charsSortType)
       const nameFilterFunc = (a) => a.name.toLowerCase().includes(this.search.toLowerCase())
       const rarityFilterFunc = (a) => a.rarity.toString().includes(this.charsRarity)
+      const visionFilterFunc = (a) => a.vision.includes(this.charsVision)
       const nationFilterFunc = (a) => a.nation.includes(this.charsNation)
+      const weaponFilterFunc = (a) => a.weapon.includes(this.charsWeapon)
       const nameComparator = (a,b) => a.name.localeCompare(b.name)
-      let data = this.charactersData.filter(nameFilterFunc).filter(rarityFilterFunc).filter(nationFilterFunc)
+      let data = this.charactersData.filter(nameFilterFunc).filter(rarityFilterFunc).filter(visionFilterFunc).filter(nationFilterFunc).filter(weaponFilterFunc)
       data = data.sort(nameComparator)
       if (reversed) data = data.reverse()
       return data
@@ -112,7 +145,9 @@ export default {
       search: localStorage.getItem("search") || "",
       charsSortType: localStorage.getItem("charsSortType") || "AZName",
       charsRarity: localStorage.getItem("charsRarity") || "",
-      charsNation: localStorage.getItem("charsNation") || ""
+      charsVision: localStorage.getItem("charsVision") || "",
+      charsNation: localStorage.getItem("charsNation") || "",
+      charsWeapon: localStorage.getItem("charsWeapon") || ""
       //isVisible: false
     }
   },
@@ -121,12 +156,13 @@ export default {
       this.characters = await getCharacters()
       console.log(this.characters) 
       for(let i = 0; i < this.characters.length; i++) {
-      this.charactersData.push(await getCharactersData(this.characters[i]))
+        this.charactersData.push(await getCharactersData(this.characters[i]))
+        this.charactersData[i].name += "|" + this.characters[i]
       }
     },
     cleanSearch: function() { 
       this.search = ""
-    } /*,
+    }/* ,
     changeVisibility: function() {
       this.isVisible = !this.isVisible
     } */
