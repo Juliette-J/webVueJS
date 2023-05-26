@@ -1,5 +1,10 @@
 <template>
   <h1>Genshin Impact Galery</h1>
+  <nav>
+    <router-link to="/">Home</router-link> | 
+    <router-link to="/characters">Characters</router-link> | 
+    <router-link to="/enemies">Enemies</router-link> 
+  </nav>
 </template>
 
 <script>

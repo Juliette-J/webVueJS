@@ -16,21 +16,15 @@ footer {
   background-color:  rgb(127, 0, 0);
   width: 90%;
   margin-left: 5%;
-  margin-top: 2em;
+  margin-top: 1.2em;
   padding: 0.1em;
 }
 
-h3 {
-  font-size: 1em;
+h3, p, a {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: white;
   text-align: center;
-}
-
-p, a {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: white;
-  text-align: center;
+  font-size: 0.9em;
 }
 
 a:hover {

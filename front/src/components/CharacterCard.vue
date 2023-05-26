@@ -96,20 +96,13 @@ export default {
   width: 40%;
   max-width: 20em;
 }
+.card:hover, .big-card:hover {
+  box-shadow: 5px 5px #7be2b4;
+}
 .infos {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-div:hover {
-  box-shadow: none;
-}
-
-p {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 0.9em;
-  
 }
 .name {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -122,6 +115,11 @@ p {
 }
 .full-icon {
   width: 100%;
+}
+
+p {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.9em;
 }
 
 button {

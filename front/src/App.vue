@@ -1,12 +1,7 @@
 <template>
-  <MyHeader/>
-  <nav>
-    <router-link to="/">Home</router-link> | 
-    <router-link to="/characters">Characters</router-link> | 
-    <router-link to="/enemies">Enemies</router-link> 
-  </nav>
-  <router-view/>
-  <MyFooter/>
+    <MyHeader/>
+    <router-view/>
+    <MyFooter/>
 </template>
 
 <script>
@@ -23,6 +18,10 @@ export default {
 </script>
 
 <style>
+#page {
+  position: relative;
+}
+
 nav {
   display: flex;
   justify-content: space-evenly;
